@@ -91,7 +91,7 @@ func TestDecisionTreeFeatureImportances(t *testing.T) {
 	y := seriesPkg.New("y", yData, core.DtypeString)
 	
 	model := NewDecisionTreeClassifier(5, 2, "gini")
-	model.Fit(X, y)
+	_ = model.Fit(X, y)
 	
 	importances := model.FeatureImportances()
 	if len(importances) != 2 {

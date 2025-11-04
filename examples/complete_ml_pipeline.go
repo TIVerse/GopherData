@@ -1,3 +1,6 @@
+//go:build ignore
+// +build ignore
+
 // Complete ML Pipeline Example
 // This example demonstrates a full machine learning workflow using GopherData
 package main

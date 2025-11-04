@@ -288,8 +288,10 @@ func R2Score(yTrue, yPred *seriesPkg.Series[any]) float64 {
 		trueFloat := toFloat64Metrics(trueVal)
 		predFloat := toFloat64Metrics(predVal)
 		
-		ssRes += math.Pow(trueFloat-predFloat, 2)
-		ssTot += math.Pow(trueFloat-mean, 2)
+		diffRes := trueFloat - predFloat
+		ssRes += diffRes * diffRes
+		diffTot := trueFloat - mean
+		ssTot += diffTot * diffTot
 	}
 	
 	if ssTot == 0 {

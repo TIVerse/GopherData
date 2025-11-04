@@ -54,11 +54,11 @@ func TestRidgeVsLinear(t *testing.T) {
 	
 	// Ridge with alpha=0
 	ridge := NewRidge(0.0, true)
-	ridge.Fit(X, y)
+	_ = ridge.Fit(X, y)
 	
 	// Linear regression
 	linear := NewLinearRegression(true)
-	linear.Fit(X, y)
+	_ = linear.Fit(X, y)
 	
 	// Coefficients should be very similar
 	ridgeCoef := ridge.Coef()[0]
@@ -79,7 +79,9 @@ func TestRidgePredict(t *testing.T) {
 	y := seriesPkg.New("y", yData, core.DtypeFloat64)
 	
 	model := NewRidge(1.0, true)
-	model.Fit(X, y)
+	if err := model.Fit(X, y); err != nil {
+		t.Fatalf("Fit failed: %v", err)
+	}
 	
 	// Test data
 	testData := map[string]any{
@@ -133,12 +135,12 @@ func TestRidgeRegularization(t *testing.T) {
 	
 	// Low regularization
 	model1 := NewRidge(0.1, true)
-	model1.Fit(X, y)
+	_ = model1.Fit(X, y)
 	coef1 := model1.Coef()
 	
 	// High regularization
 	model2 := NewRidge(10.0, true)
-	model2.Fit(X, y)
+	_ = model2.Fit(X, y)
 	coef2 := model2.Coef()
 	
 	// High alpha should produce smaller coefficients

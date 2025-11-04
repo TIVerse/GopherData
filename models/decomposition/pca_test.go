@@ -48,7 +48,7 @@ func TestPCATransform(t *testing.T) {
 	X, _ := dataframe.New(data)
 	
 	pca := NewPCA(2)
-	pca.Fit(X)
+	_ = pca.Fit(X)
 	
 	transformed, err := pca.Transform(X)
 	if err != nil {
@@ -113,7 +113,7 @@ func TestPCAComponents(t *testing.T) {
 	X, _ := dataframe.New(data)
 	
 	pca := NewPCA(2)
-	pca.Fit(X)
+	_ = pca.Fit(X)
 	
 	components := pca.Components()
 	if len(components) != 2 {
@@ -176,7 +176,7 @@ func TestPCAExplainedVariance(t *testing.T) {
 	X, _ := dataframe.New(data)
 	
 	pca := NewPCA(2)
-	pca.Fit(X)
+	_ = pca.Fit(X)
 	
 	explained := pca.ExplainedVariance()
 	

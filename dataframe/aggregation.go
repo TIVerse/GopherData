@@ -294,7 +294,7 @@ func (df *DataFrame) Describe() (*DataFrame, error) {
 	}
 
 	// Set index to stat names
-	result.SetIndex(NewStringIndex(statNames))
+	_ = result.SetIndex(NewStringIndex(statNames))
 
 	return result, nil
 }

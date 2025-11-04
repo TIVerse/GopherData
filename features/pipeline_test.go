@@ -36,6 +36,7 @@ func TestPipeline(t *testing.T) {
 		step := pipeline.GetStep(0)
 		if step == nil {
 			t.Error("Should return step at index 0")
+			return
 		}
 		if step.Name != "scaler" {
 			t.Errorf("Expected name 'scaler', got %q", step.Name)
@@ -50,6 +51,7 @@ func TestPipeline(t *testing.T) {
 		step := pipeline.GetStepByName("scaler")
 		if step == nil {
 			t.Error("Should find step by name")
+			return
 		}
 		if step.Name != "scaler" {
 			t.Errorf("Expected 'scaler', got %q", step.Name)
@@ -229,7 +231,7 @@ func TestPipelineSerialization(t *testing.T) {
 		pipeline := NewPipeline().
 			Add("scaler", scalers.NewStandardScaler([]string{"col"}))
 		
-		pipeline.Fit(df)
+		_ = pipeline.Fit(df)
 
 		// Save metadata
 		path := "/tmp/gopherdata_pipeline_meta_test.json"
@@ -250,7 +252,7 @@ func TestPipelineSerialization(t *testing.T) {
 		pipeline := NewPipeline().
 			Add("scaler", scalers.NewStandardScaler([]string{"col"}))
 		
-		pipeline.Fit(df)
+		_ = pipeline.Fit(df)
 
 		// Save pipeline
 		path := "/tmp/gopherdata_pipeline_test.json"

@@ -25,7 +25,7 @@ type TrainTestSplit struct {
 // seed: random seed (optional, defaults to time-based)
 func TrainTestSplitFunc(X *dataframe.DataFrame, y *seriesPkg.Series[any], testSize float64, shuffle bool, stratify string, seed ...int64) (TrainTestSplit, error) {
 	if X.Nrows() != y.Len() {
-		return TrainTestSplit{}, fmt.Errorf("X and y must have same length")
+		return TrainTestSplit{}, fmt.Errorf("x and y must have same length")
 	}
 	
 	if testSize <= 0 || testSize >= 1 {

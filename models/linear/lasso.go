@@ -76,7 +76,7 @@ func (l *Lasso) Fit(X *dataframe.DataFrame, y *seriesPkg.Series[any]) error {
 	}
 	
 	if len(features) != len(target) {
-		return fmt.Errorf("X and y must have the same number of samples")
+		return fmt.Errorf("x and y must have the same number of samples")
 	}
 	
 	n := len(features)
@@ -262,8 +262,10 @@ func (l *Lasso) Score(X *dataframe.DataFrame, y *seriesPkg.Series[any]) (float64
 	
 	var ssRes, ssTot float64
 	for i := range yTrue {
-		ssRes += math.Pow(yTrue[i]-yPredVals[i], 2)
-		ssTot += math.Pow(yTrue[i]-mean, 2)
+		diff := yTrue[i] - yPredVals[i]
+		ssRes += diff * diff
+		dev := yTrue[i] - mean
+		ssTot += dev * dev
 	}
 	
 	if ssTot == 0 {
@@ -271,14 +273,4 @@ func (l *Lasso) Score(X *dataframe.DataFrame, y *seriesPkg.Series[any]) (float64
 	}
 	
 	return 1 - (ssRes / ssTot), nil
-}
-
-// softThreshold applies soft thresholding operator for Lasso.
-func softThreshold(z, gamma float64) float64 {
-	if z > gamma {
-		return z - gamma
-	} else if z < -gamma {
-		return z + gamma
-	}
-	return 0
 }

@@ -60,7 +60,7 @@ func (w *CSVWriter) write(df *dataframe.DataFrame) error {
 	if err != nil {
 		return fmt.Errorf("failed to create file: %w", err)
 	}
-	defer file.Close()
+	defer func() { _ = file.Close() }()
 
 	csvWriter := csv.NewWriter(file)
 	csvWriter.Comma = w.delimiter

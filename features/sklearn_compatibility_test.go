@@ -114,7 +114,7 @@ func TestSklearnOneHotEncoderCompatibility(t *testing.T) {
 		df, _ := dataframe.New(data)
 
 		encoder := encoders.NewOneHotEncoder([]string{"category"})
-		encoder.Fit(df)
+		_ = encoder.Fit(df)
 		
 		categories := encoder.GetCategories()
 		if len(categories["category"]) != 3 {
@@ -162,7 +162,7 @@ func TestSklearnSimpleImputerCompatibility(t *testing.T) {
 		df, _ := dataframe.New(data)
 
 		imputer := imputers.NewSimpleImputer([]string{"feature"}, "mean")
-		imputer.Fit(df)
+		_ = imputer.Fit(df)
 		
 		stats := imputer.GetStats()
 		expectedMean := 3.0 // (1+3+5)/3
@@ -204,6 +204,7 @@ func TestSklearnPipelineCompatibility(t *testing.T) {
 		scalerStep := pipeline.GetStepByName("scaler")
 		if scalerStep == nil {
 			t.Error("Should be able to access step by name")
+			return
 		}
 		if scalerStep.Name != "scaler" {
 			t.Errorf("Expected 'scaler', got %q", scalerStep.Name)
@@ -249,12 +250,13 @@ func TestSklearnPipelineCompatibility(t *testing.T) {
 		pipeline := NewPipeline().
 			Add("scaler", scalers.NewStandardScaler([]string{"col"}))
 		
-		pipeline.Fit(df)
+		_ = pipeline.Fit(df)
 
 		// Access step
 		step := pipeline.GetStepByName("scaler")
 		if step == nil {
 			t.Error("Should access step by name")
+			return
 		}
 
 		// Verify it's fitted
@@ -304,7 +306,7 @@ func TestSklearnBehaviorConsistency(t *testing.T) {
 		df, _ := dataframe.New(data)
 
 		scaler := scalers.NewStandardScaler([]string{"col"})
-		scaler.Fit(df)
+		_ = scaler.Fit(df)
 		transformed, _ := scaler.Transform(df)
 		
 		// Original should be unchanged (like sklearn doesn't mutate input)
@@ -329,7 +331,7 @@ func TestSklearnNumericalEquivalence(t *testing.T) {
 		df, _ := dataframe.New(data)
 
 		scaler := scalers.NewStandardScaler([]string{"col"})
-		scaler.Fit(df)
+		_ = scaler.Fit(df)
 		
 		means := scaler.GetMeans()
 		stds := scaler.GetStds()
@@ -359,7 +361,7 @@ func TestSklearnNumericalEquivalence(t *testing.T) {
 		scaler := scalers.NewMinMaxScaler([]string{"col"})
 		scaler.FeatureMin = 0.0
 		scaler.FeatureMax = 1.0
-		scaler.Fit(df)
+		_ = scaler.Fit(df)
 		
 		mins := scaler.GetMins()
 		maxs := scaler.GetMaxs()
@@ -395,7 +397,7 @@ func BenchmarkStandardScalerVsSklearn(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		scaler := scalers.NewStandardScaler([]string{"col1", "col2", "col3"})
-		scaler.Fit(df)
-		scaler.Transform(df)
+		_ = scaler.Fit(df)
+		_, _ = scaler.Transform(df)
 	}
 }

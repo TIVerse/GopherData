@@ -43,7 +43,7 @@ func TestKMeansPredict(t *testing.T) {
 	X, _ := dataframe.New(data)
 	
 	model := NewKMeans(2, 100, "random", 42)
-	model.Fit(X)
+	_ = model.Fit(X)
 	
 	// Test data
 	testData := map[string]any{
@@ -115,7 +115,7 @@ func TestKMeansConvergence(t *testing.T) {
 	X, _ := dataframe.New(data)
 	
 	model := NewKMeans(2, 100, "k-means++", 42)
-	model.Fit(X)
+	_ = model.Fit(X)
 	
 	if model.NIter() > 10 {
 		t.Logf("Warning: Took %d iterations to converge (expected < 10)", model.NIter())

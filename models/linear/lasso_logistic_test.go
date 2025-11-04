@@ -53,7 +53,7 @@ func TestLassoSparsity(t *testing.T) {
 	y := seriesPkg.New("y", yData, core.DtypeFloat64)
 	
 	model := NewLasso(5.0, 1000, true) // High alpha for sparsity
-	model.Fit(X, y)
+	_ = model.Fit(X, y)
 	
 	coef := model.Coef()
 	
@@ -82,7 +82,7 @@ func TestLassoPredict(t *testing.T) {
 	y := seriesPkg.New("y", yData, core.DtypeFloat64)
 	
 	model := NewLasso(1.0, 1000, true)
-	model.Fit(X, y)
+	_ = model.Fit(X, y)
 	
 	testData := map[string]any{
 		"x": []float64{6, 7},
@@ -138,7 +138,7 @@ func TestLogisticRegressionPredict(t *testing.T) {
 	y := seriesPkg.New("y", yData, core.DtypeString)
 	
 	model := NewLogisticRegression("none", 1.0, 500) // More iterations
-	model.Fit(X, y)
+	_ = model.Fit(X, y)
 	
 	predictions, err := model.Predict(X)
 	if err != nil {
@@ -177,7 +177,7 @@ func TestLogisticRegressionPredictProba(t *testing.T) {
 	y := seriesPkg.New("y", yData, core.DtypeString)
 	
 	model := NewLogisticRegression("none", 1.0, 100)
-	model.Fit(X, y)
+	_ = model.Fit(X, y)
 	
 	proba, err := model.PredictProba(X)
 	if err != nil {

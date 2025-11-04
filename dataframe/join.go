@@ -54,26 +54,11 @@ func (df *DataFrame) Merge(other *DataFrame, joinType string, leftOn, rightOn []
 		return nil, fmt.Errorf("invalid join type %q", joinType)
 	}
 
-	// Validate key columns
-	// Validate key columns (except for cross join)
-	if joinType != JoinCross && (len(leftOn) == 0 || len(rightOn) == 0) {
-		return nil, fmt.Errorf("join keys cannot be empty: %w", core.ErrInvalidArgument)
-	if joinType != JoinCross && len(leftOn) != len(rightOn) {
-		return nil, fmt.Errorf("left and right join keys must have same length: %w", core.ErrInvalidArgument)
-	}
-	if joinType != JoinCross && len(leftOn) != len(rightOn) {
-		return nil, fmt.Errorf("left and right join keys must have same length: %w", core.ErrInvalidArgument)
-	}
-	if joinType != JoinCross && len(leftOn) != len(rightOn) {
-		return nil, fmt.Errorf("left and right join keys must have same length: %w", core.ErrInvalidArgument)
-	}
-		return nil, fmt.Errorf("join keys cannot be empty: %w", core.ErrInvalidArgument)
-	}
 	// Validate key columns (except for cross join)
 	if joinType != JoinCross && (len(leftOn) == 0 || len(rightOn) == 0) {
 		return nil, fmt.Errorf("join keys cannot be empty: %w", core.ErrInvalidArgument)
 	}
-	if len(leftOn) != len(rightOn) {
+	if joinType != JoinCross && len(leftOn) != len(rightOn) {
 		return nil, fmt.Errorf("left and right join keys must have same length: %w", core.ErrInvalidArgument)
 	}
 

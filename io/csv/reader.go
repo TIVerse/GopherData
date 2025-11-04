@@ -104,7 +104,7 @@ func (r *CSVReader) read() (*dataframe.DataFrame, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to open file: %w", err)
 	}
-	defer file.Close()
+	defer func() { _ = file.Close() }()
 
 	csvReader := csv.NewReader(file)
 	csvReader.Comma = r.delimiter
@@ -295,12 +295,12 @@ func (r *CSVReader) parseColumn(values []string, dtype core.Dtype) ([]any, error
 			result[i] = parsed
 
 		case core.DtypeBool:
-			lower := strings.ToLower(val)
-			if lower == "true" {
+			switch strings.ToLower(val) {
+			case "true":
 				result[i] = true
-			} else if lower == "false" {
+			case "false":
 				result[i] = false
-			} else {
+			default:
 				return nil, fmt.Errorf("failed to parse %q as bool", val)
 			}
 

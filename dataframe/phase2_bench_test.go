@@ -10,7 +10,7 @@ import (
 
 // generateTestData creates a DataFrame with specified rows for benchmarking
 func generateTestData(nrows int, seed int64) *DataFrame {
-	rand.Seed(seed)
+	r := rand.New(rand.NewSource(seed))
 	
 	data := map[string]any{
 		"id":       make([]int64, nrows),
@@ -25,9 +25,9 @@ func generateTestData(nrows int, seed int64) *DataFrame {
 	for i := 0; i < nrows; i++ {
 		data["id"].([]int64)[i] = int64(i)
 		data["category"].([]string)[i] = categories[i%len(categories)]
-		data["value1"].([]float64)[i] = rand.Float64() * 1000
-		data["value2"].([]float64)[i] = rand.Float64() * 100
-		data["group"].([]int64)[i] = int64(rand.Intn(100))
+		data["value1"].([]float64)[i] = r.Float64() * 1000
+		data["value2"].([]float64)[i] = r.Float64() * 100
+		data["group"].([]int64)[i] = int64(r.Intn(100))
 	}
 	
 	df, _ := New(data)

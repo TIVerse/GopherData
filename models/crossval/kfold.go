@@ -108,7 +108,7 @@ type Scorer interface {
 // Returns a score for each fold.
 func CrossValScore(model Scorer, X *dataframe.DataFrame, y *seriesPkg.Series[any], cv *KFold, scoringFunc func(*seriesPkg.Series[any], *seriesPkg.Series[any]) float64) ([]float64, error) {
 	if X.Nrows() != y.Len() {
-		return nil, fmt.Errorf("X and y must have same length")
+		return nil, fmt.Errorf("x and y must have same length")
 	}
 	
 	folds := cv.Split(X)

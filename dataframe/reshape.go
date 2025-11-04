@@ -30,9 +30,7 @@ func (df *DataFrame) Pivot(index, columns, values string) (*DataFrame, error) {
 	
 	// Add index column
 	indexData := make([]any, len(indexVals))
-	for i, val := range indexVals {
-		indexData[i] = val
-	}
+	copy(indexData, indexVals)
 	pivotData[index] = indexData
 
 	// Create columns for each unique column value

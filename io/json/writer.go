@@ -56,7 +56,7 @@ func (w *JSONWriter) write(df *dataframe.DataFrame) error {
 	if err != nil {
 		return fmt.Errorf("failed to create file: %w", err)
 	}
-	defer file.Close()
+	defer func() { _ = file.Close() }()
 
 	if w.lines {
 		return w.writeJSONLines(df, file)
@@ -145,7 +145,7 @@ func (w *JSONWriter) writeJSONLines(df *dataframe.DataFrame, file *os.File) erro
 	cols := df.Columns()
 	
 	writer := bufio.NewWriter(file)
-	defer writer.Flush()
+	defer func() { _ = writer.Flush() }()
 
 	for i := 0; i < nrows; i++ {
 		record := make(map[string]any)

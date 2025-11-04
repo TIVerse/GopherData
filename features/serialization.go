@@ -64,7 +64,7 @@ func (p *Pipeline) Save(path string) error {
 	if err != nil {
 		return fmt.Errorf("failed to create file: %w", err)
 	}
-	defer file.Close()
+	defer func() { _ = file.Close() }()
 	
 	encoder := json.NewEncoder(file)
 	encoder.SetIndent("", "  ")
@@ -81,7 +81,7 @@ func LoadPipeline(path string) (*Pipeline, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to open file: %w", err)
 	}
-	defer file.Close()
+	defer func() { _ = file.Close() }()
 	
 	var serialized SerializedPipeline
 	decoder := json.NewDecoder(file)
@@ -245,7 +245,7 @@ func (p *Pipeline) SaveMetadata(path string) error {
 	if err != nil {
 		return fmt.Errorf("failed to create file: %w", err)
 	}
-	defer file.Close()
+	defer func() { _ = file.Close() }()
 	
 	encoder := json.NewEncoder(file)
 	encoder.SetIndent("", "  ")

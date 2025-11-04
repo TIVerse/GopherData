@@ -115,7 +115,7 @@ func (lr *LogisticRegression) Fit(X *dataframe.DataFrame, y *seriesPkg.Series[an
 	}
 	
 	if len(features) != len(target) {
-		return fmt.Errorf("X and y must have the same number of samples")
+		return fmt.Errorf("x and y must have the same number of samples")
 	}
 	
 	n := len(features)
@@ -152,11 +152,12 @@ func (lr *LogisticRegression) Fit(X *dataframe.DataFrame, y *seriesPkg.Series[an
 		}
 		
 		// Add regularization gradient
-		if lr.Penalty == "l2" {
+		switch lr.Penalty {
+		case "l2":
 			for j := 0; j < p; j++ {
 				gradCoef[j] += alpha * lr.coef[j]
 			}
-		} else if lr.Penalty == "l1" {
+		case "l1":
 			for j := 0; j < p; j++ {
 				if lr.coef[j] > 0 {
 					gradCoef[j] += alpha

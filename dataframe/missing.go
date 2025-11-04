@@ -278,7 +278,7 @@ func interpolateLinear(data []any, s *series.Series[any], limit int) {
 		}
 
 		// Find previous non-null value
-		var prevIdx int = -1
+		prevIdx := -1
 		var prevVal float64
 		for j := i - 1; j >= 0; j-- {
 			if !s.IsNull(j) {
@@ -289,7 +289,7 @@ func interpolateLinear(data []any, s *series.Series[any], limit int) {
 		}
 
 		// Find next non-null value
-		var nextIdx int = -1
+		nextIdx := -1
 		var nextVal float64
 		for j := i + 1; j < n; j++ {
 			if !s.IsNull(j) {
