@@ -1,8 +1,14 @@
 # GopherData
 
 [![Go Version](https://img.shields.io/badge/Go-1.21%2B-blue.svg)](https://golang.org)
+[![Go Reference](https://pkg.go.dev/badge/github.com/TIVerse/GopherData.svg)](https://pkg.go.dev/github.com/TIVerse/GopherData)
+[![Go Report Card](https://goreportcard.com/badge/github.com/TIVerse/GopherData)](https://goreportcard.com/report/github.com/TIVerse/GopherData)
+[![CI](https://github.com/TIVerse/GopherData/actions/workflows/ci.yml/badge.svg)](https://github.com/TIVerse/GopherData/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/TIVerse/GopherData/branch/master/graph/badge.svg)](https://codecov.io/gh/TIVerse/GopherData)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-v1.0.0-brightgreen.svg)](CHANGELOG.md)
+[![GitHub release](https://img.shields.io/github/v/release/TIVerse/GopherData)](https://github.com/TIVerse/GopherData/releases)
+[![GitHub stars](https://img.shields.io/github/stars/TIVerse/GopherData?style=social)](https://github.com/TIVerse/GopherData)
+[![GitHub forks](https://img.shields.io/github/forks/TIVerse/GopherData?style=social)](https://github.com/TIVerse/GopherData/network/members)
 
 **A comprehensive data science library for Go** - Bringing pandas-like DataFrame operations and scikit-learn compatible machine learning to the Go ecosystem.
 
@@ -183,7 +189,7 @@ GopherData is a data science library for Go that provides:
 ### Using go get
 
 ```bash
-go get github.com/TIVerse/GopherData
+go get github.com/TIVerse/GopherData@latest
 ```
 
 ### Requirements
@@ -196,6 +202,22 @@ go get github.com/TIVerse/GopherData
 ```bash
 go version  # Should be 1.21+
 go list -m github.com/TIVerse/GopherData
+```
+
+### Install CLI Tool
+
+```bash
+go install github.com/TIVerse/GopherData/cmd/gopherdata@latest
+```
+
+### Import in Your Code
+
+```go
+import (
+    "github.com/TIVerse/GopherData/dataframe"
+    "github.com/TIVerse/GopherData/models/linear"
+    "github.com/TIVerse/GopherData/features"
+)
 ```
 
 ---
