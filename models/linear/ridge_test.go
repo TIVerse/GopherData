@@ -109,7 +109,9 @@ func TestRidgeScore(t *testing.T) {
 	y := seriesPkg.New("y", yData, core.DtypeFloat64)
 	
 	model := NewRidge(0.5, true)
-	model.Fit(X, y)
+	if err := model.Fit(X, y); err != nil {
+		t.Fatalf("Fit failed: %v", err)
+	}
 	
 	r2, err := model.Score(X, y)
 	if err != nil {

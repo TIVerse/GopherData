@@ -51,7 +51,9 @@ func TestLinearRegressionPredict(t *testing.T) {
 	y := seriesPkg.New("y", yData, core.DtypeFloat64)
 	
 	model := NewLinearRegression(true)
-	model.Fit(X, y)
+	if err := model.Fit(X, y); err != nil {
+		t.Fatalf("Fit failed: %v", err)
+	}
 	
 	// Test data
 	testData := map[string]any{
@@ -122,7 +124,9 @@ func TestLinearRegressionScore(t *testing.T) {
 	y := seriesPkg.New("y", yData, core.DtypeFloat64)
 	
 	model := NewLinearRegression(true)
-	model.Fit(X, y)
+	if err := model.Fit(X, y); err != nil {
+		t.Fatalf("Fit failed: %v", err)
+	}
 	
 	r2, err := model.Score(X, y)
 	if err != nil {
